@@ -13,6 +13,7 @@
 
         // Captura o token (e-mail) da URL
         const email = getQueryParam('token');
+        console.log("Token capturado:", email); // Exibe o token no console
 
         if (email) {
             // Envia o e-mail para a planilha via Sheetmonkey
@@ -34,8 +35,6 @@
             // Se não encontrar o token, redireciona para a home
             window.location.href = "https://www.natura.com.br/";
         }
-
-        console.log("Token capturado:", email);
 
     </script>
 </head>
