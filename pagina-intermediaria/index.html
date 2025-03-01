@@ -1,36 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecionando...</title>
-</head>
-<body>
-    <h1>Redirecionando, aguarde...</h1>
-
     <script>
-        // Capturar o token da URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get("token");
+        // Função para capturar parâmetros da URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
 
-        if (token) {
-            // Salvar o acesso (exemplo com Webhook)
-            fetch("https://api.sheetmonkey.io/form/qQN99oM2ChMjCJYhtmxq2s", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    token: token,
-                    timestamp: new Date().toISOString()
-                })
+        // Captura o token (e-mail) da URL
+        const email = getQueryParam('token');
+
+        if (email) {
+            // Envia o e-mail para a planilha via Sheetmonkey
+            fetch('https://api.sheetmonkey.io/form/https://api.sheetmonkey.io/form/qQN99oM2ChMjCJYhtmxq2s', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email, data: new Date().toLocaleString() })
+            })
+            .then(() => {
+                // Redireciona para o site final após enviar o dado
+                window.location.href = "https://www.natura.com.br/";
+            })
+            .catch((error) => {
+                console.error('Erro ao enviar dados:', error);
             });
-
-            // Redirecionar para a página final
-            setTimeout(() => {
-                window.location.href = "https://www.natura.com.br";
-            }, 2000); // Redireciona em 2 segundos
         } else {
-            document.body.innerHTML = "<h1>Token não encontrado!</h1>";
+            // Se não encontrar o token, redireciona para a home
+            window.location.href = "https://www.natura.com.br/";
         }
     </script>
+</head>
+<body>
+    <h1>Redirecionando...</h1>
 </body>
 </html>
