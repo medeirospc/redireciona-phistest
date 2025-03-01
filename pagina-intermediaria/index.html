@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando...</title>
+</head>
+<body>
+    <h1>Redirecionando, aguarde...</h1>
+
+    <script>
+        // Capturar o token da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get("token");
+
+        if (token) {
+            // Salvar o acesso (exemplo com Webhook)
+            fetch("https://api.sheetmonkey.io/form/qQN99oM2ChMjCJYhtmxq2s", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    token: token,
+                    timestamp: new Date().toISOString()
+                })
+            });
+
+            // Redirecionar para a página final
+            setTimeout(() => {
+                window.location.href = "https://www.natura.com.br";
+            }, 2000); // Redireciona em 2 segundos
+        } else {
+            document.body.innerHTML = "<h1>Token não encontrado!</h1>";
+        }
+    </script>
+</body>
+</html>
